@@ -1,1 +1,7 @@
 vendor/
+.idea/
+build-in-docker
+check-in-docker
+dep-in-docker
+package-in-docker
+container-structure-test-in-docker
