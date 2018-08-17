@@ -1,5 +1,5 @@
 .PHONY: build
-build: dep-in-docker build-in-docker check-in-docker package-in-docker
+build: package-in-docker
 
 .PHONY: check
 check: build container-structure-test-in-docker
@@ -18,7 +18,7 @@ build-in-docker: dep-in-docker $(sources) Dockerfile_build-in-docker
 check-in-docker: build-in-docker $(sources) Dockerfile_check-in-docker
 	docker build --iidfile check-in-docker -t check-in-docker -f Dockerfile_check-in-docker .
 
-package-in-docker: check-in-docker $(sources) Dockerfile
+package-in-docker: check-in-docker Dockerfile
 	docker build --iidfile package-in-docker -t hi -f Dockerfile .
 
 clean:
