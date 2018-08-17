@@ -1,6 +1,7 @@
 from golang:1.10
 
+RUN go get github.com/GoogleContainerTools/container-structure-test
+
 COPY ./Dockerfile_test.yaml ./
 
-RUN go get github.com/GoogleContainerTools/container-structure-test
 CMD container-structure-test test --image hi --config ./Dockerfile_test.yaml
