@@ -1,0 +1,57 @@
+resources:
+  - name: docker-in-concourse
+    type: git
+    source:
+      uri: https://github.com/xinzweb/docker-in-concourse.git
+  - name: docker
+    type: docker-image
+    source:
+      repository: docker
+      tag: dind
+  - name: make-in-docker
+    type: git
+    source:
+      uri: https://github.com/xinzweb/make-in-docker.git
+
+jobs:
+  - name: make-in-docker-in-concourse
+    plan:
+    - aggregate:
+      - get: docker-in-concourse
+      - get: docker
+      - get: make-in-docker
+    - task: run dockerd
+      image: docker
+      privileged: true # required
+      config:
+        platform: linux
+        inputs:
+        - name: docker-in-concourse # required
+        - name: docker
+        - name: make-in-docker
+        run:
+          path: sh
+          args:
+            - -ec
+            - |
+              ####
+              # bash is required to run the dind.bash
+              ####
+              apk -q update
+              apk -q --no-progress add bash
+              ####
+              # load script
+              ####
+              . docker-in-concourse/dind.bash
+              ####
+              # start dockerd
+              ####
+              export max_concurrent_downloads=4
+              export max_concurrent_uploads=4
+              start_docker ${max_concurrent_downloads} ${max_concurrent_uploads}
+              ####
+              # make in docker
+              ####
+              cd make-in-docker/
+              docker build .
+
