@@ -13,7 +13,7 @@ This is based on previous work in [docker-in-concourse](https://github.com/xinzw
 # Demo
 
 ```bash
-fly -t <your target> set-pipeline -p make-in-docker -c concourse/pipeline.yml
+fly -t <your target> set-pipeline -p make-in-docker -c concourse/pipeline.yaml
 ```
 
 trigger the job in the pipeline you should see job `make-in-docker-in-concourse`

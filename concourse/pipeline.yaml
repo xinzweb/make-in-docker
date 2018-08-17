@@ -27,8 +27,7 @@ jobs:
         platform: linux
         inputs:
         - name: docker-in-concourse # required
-        - name: docker
-        - name: make-in-docker
+        - name: make-in-docker # repo leveraging docker to build and test
         run:
           path: sh
           args:
