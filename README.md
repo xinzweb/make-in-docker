@@ -9,6 +9,7 @@ This is based on previous work in [docker-in-concourse](https://github.com/xinzw
 - cache intermediate results in separate container images to reduce iteration time
 - final run image is only 6.4MB, even though the build environment is ~1GB
 - multiple container images shared most content and not wasting spaces
+- be able to run `container-structure-test` inside a docker environment
 
 # Demo
 
