@@ -1,6 +1,9 @@
 from golang:1.10
 
-COPY . /go/src/github.com/xinzweb/make-in-docker
-WORKDIR /go/src/github.com/xinzweb/make-in-docker
 RUN go get github.com/golang/dep/cmd/dep
+
+COPY Gopkg.lock /go/src/github.com/xinzweb/make-in-docker/
+COPY Gopkg.toml /go/src/github.com/xinzweb/make-in-docker/
+COPY cmd/ /go/src/github.com/xinzweb/make-in-docker/cmd/
+WORKDIR /go/src/github.com/xinzweb/make-in-docker
 RUN dep ensure
