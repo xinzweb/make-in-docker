@@ -1,0 +1,5 @@
+from dep-in-docker
+
+COPY . /go/src/github.com/xinzweb/make-in-docker
+WORKDIR /go/src/github.com/xinzweb/make-in-docker
+RUN go build ./...
