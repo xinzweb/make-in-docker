@@ -2,9 +2,11 @@
 build: dep-in-docker build-in-docker check-in-docker package-in-docker
 
 .PHONY: check
-check: build
-	go get github.com/GoogleContainerTools/container-structure-test
-	container-structure-test test --image hi --config Dockerfile_test.yml
+check: build container-structure-test-in-docker
+	docker run -v /var/run/docker.sock:/var/run/docker.sock container-structure-test-in-docker
+
+container-structure-test-in-docker:
+	docker build --iidfile container-structure-test-in-docker -t container-structure-test-in-docker -f Dockerfile_container-structure-test .
 
 dep-in-docker: Gopkg.lock Gopkg.toml
 	docker build --iidfile dep-in-docker -t dep-in-docker -f Dockerfile_dep-in-docker .
