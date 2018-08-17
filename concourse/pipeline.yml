@@ -38,7 +38,7 @@ jobs:
               # bash is required to run the dind.bash
               ####
               apk -q update
-              apk -q --no-progress add bash
+              apk -q --no-progress add bash make
               ####
               # load script
               ####
@@ -52,18 +52,11 @@ jobs:
               ####
               # make in docker
               ####
-              cd make-in-docker/
-              docker build -t dep-in-docker -f Dockerfile_dep-in-docker .
-              docker build -t build-in-docker -f Dockerfile_build-in-docker .
-              docker build -t check-in-docker -f Dockerfile_check-in-docker .
+              make -C make-in-docker
               ####
-              # make final runner docker image
+              # test it
               ####
-              docker build -t hi -f Dockerfile .
-              ####
-              # run it
-              ####
-              docker run hi
+              make -C make-in-docker check
               ####
               # check docker images size
               ####
