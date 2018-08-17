@@ -56,3 +56,15 @@ jobs:
               docker build -t dep-in-docker -f Dockerfile_dep-in-docker .
               docker build -t build-in-docker -f Dockerfile_build-in-docker .
               docker build -t check-in-docker -f Dockerfile_check-in-docker .
+              ####
+              # make final runner docker image
+              ####
+              docker build -t hi -f Dockerfile .
+              ####
+              # run it
+              ####
+              docker run hi
+              ####
+              # check docker images size
+              ####
+              docker system df -v

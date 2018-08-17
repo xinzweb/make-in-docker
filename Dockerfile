@@ -1,6 +1,11 @@
-from golang:1.10
+from check-in-docker as builder
 
-COPY . /tmp/hello
-WORKDIR /tmp/hello
-RUN go build
-RUN ./hello
+WORKDIR /go/src/github.com/xinzweb/make-in-docker/cmd
+RUN go build -o hi
+
+
+from alpine as runner
+
+COPY --from=builder /go/src/github.com/xinzweb/make-in-docker/cmd/hi /usr/bin/hi
+RUN /usr/bin/hi
+CMD /usr/bin/hi

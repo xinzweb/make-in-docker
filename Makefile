@@ -9,3 +9,7 @@ build-in-docker:
 .PHONY: check-in-docker
 check-in-docker:
 	docker build -t check-in-docker -f Dockerfile_check-in-docker .
+
+.PHONEY: docker
+docker:
+	docker build -t hi -f Dockerfile .
