@@ -16,3 +16,9 @@ check-in-docker: build-in-docker $(sources)
 
 package-in-docker: check-in-docker $(sources)
 	docker build --iidfile package-in-docker -t hi -f Dockerfile .
+
+clean:
+	rm dep-in-docker
+	rm build-in-docker
+	rm check-in-docker
+	rm package-in-docker
