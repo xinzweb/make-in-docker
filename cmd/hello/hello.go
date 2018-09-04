@@ -2,8 +2,8 @@ package hello
 
 import "fmt"
 
-func Hello(msg string) error {
+func Hello(msg string) (string, error) {
 	fmt.Println("Hello " + msg)
-	return nil
+	return msg, nil
 }
 
