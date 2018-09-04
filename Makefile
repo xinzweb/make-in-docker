@@ -22,8 +22,8 @@ package-in-docker: check-in-docker Dockerfile
 	docker build --iidfile package-in-docker -t hi -f Dockerfile .
 
 clean:
-	rm dep-in-docker
-	rm build-in-docker
-	rm check-in-docker
-	rm package-in-docker
-	rm container-structure-test-in-docker
+	rm -f dep-in-docker
+	rm -f build-in-docker
+	rm -f check-in-docker
+	rm -f package-in-docker
+	rm -f container-structure-test-in-docker
