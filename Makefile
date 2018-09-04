@@ -5,6 +5,9 @@ build: package-in-docker
 check: build container-structure-test-in-docker
 	docker run --rm -v /var/run/docker.sock:/var/run/docker.sock container-structure-test-in-docker
 
+multi-stage-in-docker: Dockerfile_multi-stage
+	docker build --iidfile multi-stage-in-docker -t hi -f Dockerfile_multi-stage .
+
 container-structure-test-in-docker: Dockerfile_container-structure-test Dockerfile_test.yaml
 	docker build --iidfile container-structure-test-in-docker -t container-structure-test-in-docker -f Dockerfile_container-structure-test .
 
@@ -25,6 +28,7 @@ clean:
 	docker image prune -f --filter="dangling=true"
 	for tag in \
 			container-structure-test-in-docker \
+			multi-stage-in-docker \
 			package-in-docker \
 			check-in-docker \
 			build-in-docker \

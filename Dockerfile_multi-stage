@@ -1,0 +1,19 @@
+from golang:1.10 as builder
+
+RUN go get github.com/golang/dep/cmd/dep
+
+COPY Gopkg.lock /go/src/github.com/xinzweb/make-in-docker/
+COPY Gopkg.toml /go/src/github.com/xinzweb/make-in-docker/
+COPY cmd/ /go/src/github.com/xinzweb/make-in-docker/cmd/
+WORKDIR /go/src/github.com/xinzweb/make-in-docker
+RUN dep ensure
+RUN go build ./...
+RUN go test ./...
+WORKDIR /go/src/github.com/xinzweb/make-in-docker/cmd
+RUN go build -o hi
+
+from alpine as runner
+
+COPY --from=builder /go/src/github.com/xinzweb/make-in-docker/cmd/hi /usr/bin/hi
+RUN /usr/bin/hi
+CMD /usr/bin/hi
