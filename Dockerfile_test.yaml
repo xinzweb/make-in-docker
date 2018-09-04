@@ -3,3 +3,4 @@ schemaVersion: "2.0.0"
 commandTests:
 - name: "can say hi"
   command: "/usr/bin/hi"
+  expectedOutput: ["Hello 世界"]
