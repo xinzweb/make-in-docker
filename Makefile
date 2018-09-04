@@ -5,9 +5,6 @@ build: package-in-docker
 check: build container-structure-test-in-docker
 	docker run --rm -v /var/run/docker.sock:/var/run/docker.sock container-structure-test-in-docker
 
-multi-stage-in-docker: Dockerfile_multi-stage
-	docker build --iidfile multi-stage-in-docker -t hi -f Dockerfile_multi-stage .
-
 container-structure-test-in-docker: Dockerfile_container-structure-test Dockerfile_test.yaml
 	docker build --iidfile container-structure-test-in-docker -t container-structure-test-in-docker -f Dockerfile_container-structure-test .
 
@@ -15,6 +12,9 @@ dep-in-docker: Gopkg.lock Gopkg.toml Dockerfile_dep-in-docker
 	docker build --iidfile dep-in-docker -t dep-in-docker -f Dockerfile_dep-in-docker .
 
 sources := $(shell find . -name "*.go" -print)
+multi-stage-in-docker: $(sources) Dockerfile_multi-stage
+	docker build --iidfile multi-stage-in-docker -t hi -f Dockerfile_multi-stage .
+
 build-in-docker: dep-in-docker $(sources) Dockerfile_build-in-docker
 	docker build --iidfile build-in-docker -t build-in-docker -f Dockerfile_build-in-docker .
 
