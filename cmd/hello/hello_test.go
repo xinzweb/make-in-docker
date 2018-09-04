@@ -9,7 +9,7 @@ import (
 var _ = Describe("hello", func() {
 	It("says hello", func() {
 		msg, err := hello.Hello("there")
-		Expect(msg).To(Equal("Hello there"))
+		Expect(msg).To(Equal("Hi there"))
 		Expect(err).ToNot(HaveOccurred())
 	})
 })
