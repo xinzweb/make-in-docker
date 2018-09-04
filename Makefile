@@ -22,8 +22,15 @@ package-in-docker: check-in-docker Dockerfile
 	docker build --iidfile package-in-docker -t hi -f Dockerfile .
 
 clean:
-	rm -f dep-in-docker
-	rm -f build-in-docker
-	rm -f check-in-docker
-	rm -f package-in-docker
-	rm -f container-structure-test-in-docker
+	docker image prune -f --filter="dangling=true"
+	for tag in \
+			container-structure-test-in-docker \
+			package-in-docker \
+			check-in-docker \
+			build-in-docker \
+			dep-in-docker ; do\
+		if [ -f $$tag ] ; then \
+			docker rmi -f $$(cat $$tag) ; \
+			rm -f $$tag ; \
+		fi ; \
+	done
