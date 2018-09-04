@@ -8,8 +8,8 @@ import (
 
 var _ = Describe("hello", func() {
 	It("says hello", func() {
-		msg, err := hello.Hello("world")
-		Expect(msg).To(Equal("world"))
+		msg, err := hello.Hello("there")
+		Expect(msg).To(Equal("Hello there"))
 		Expect(err).ToNot(HaveOccurred())
 	})
 })
