@@ -20,6 +20,7 @@ jobs:
       - get: docker-in-concourse
       - get: docker
       - get: make-in-docker
+        trigger: yes
     - task: run dockerd
       image: docker
       privileged: true # required
