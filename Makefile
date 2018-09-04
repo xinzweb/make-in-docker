@@ -3,7 +3,7 @@ build: package-in-docker
 
 .PHONY: check
 check: build container-structure-test-in-docker
-	docker run -v /var/run/docker.sock:/var/run/docker.sock container-structure-test-in-docker
+	docker run --rm -v /var/run/docker.sock:/var/run/docker.sock container-structure-test-in-docker
 
 container-structure-test-in-docker: Dockerfile_container-structure-test Dockerfile_test.yaml
 	docker build --iidfile container-structure-test-in-docker -t container-structure-test-in-docker -f Dockerfile_container-structure-test .
